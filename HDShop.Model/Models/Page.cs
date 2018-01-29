@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace HDShop.Model.Models
 {
-    [Table("ProductCategories")]
-    public class ProductCategory : Auditable
+    [Table("Pages")]
+    public class Page : Auditable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -18,18 +18,10 @@ namespace HDShop.Model.Models
         [Required]
         [MaxLength(256)]
         public string Name { set; get; }
+        [Column(TypeName ="varchar")]
+        [MaxLength(256)]
         [Required]
-        [MaxLength(256)]
         public string Alias { set; get; }
-        [MaxLength(500)]
-        public string Description {set;get;}
-        public int? ParentID { set; get; }
-        public int? DisplayOrder { set; get; }
-        [MaxLength(256)]
-        public string Image { set; get; }
-        public bool? HomeFlag { set; get; }
-
-        public virtual IEnumerable<Product> Products { set; get; }
-
+        public string Content { set; get; }
     }
 }
