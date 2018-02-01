@@ -3,7 +3,7 @@ using HDShop.Model.Models;
 
 namespace HDShop.Data.Repositories
 {
-    public interface IProductRepository
+    public interface IProductRepository : IRepository<Product>
     {
     }
 

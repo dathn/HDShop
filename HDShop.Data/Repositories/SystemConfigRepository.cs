@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HDShop.Data.Repositories
 {
-    public interface ISystemConfigRepository
+    public interface ISystemConfigRepository:IRepository<SystemConfig>
     {
 
     }

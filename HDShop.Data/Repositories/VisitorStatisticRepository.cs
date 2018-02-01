@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HDShop.Data.Repositories
 {
-    public interface IVisitorStatisticRepository
+    public interface IVisitorStatisticRepository:IRepository<VisitorStatistic>
     {
 
     }
