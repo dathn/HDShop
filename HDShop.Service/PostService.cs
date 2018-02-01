@@ -42,7 +42,7 @@ namespace HDShop.Service
 
         public void Delete(int id)
         {
-            _postRepository.Delete(id);
+          _postRepository.Delete(id);
         }
 
         public IEnumerable<Post> GetAll()

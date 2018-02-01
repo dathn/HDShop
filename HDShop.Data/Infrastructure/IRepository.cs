@@ -14,7 +14,8 @@ namespace HDShop.Data.Infrastructure
         void Update(T entity);
 
         //Marks an entity as removed
-        void Delete(int id);
+        T Delete(T entity);
+        T Delete(int id);
 
         //Delete multi record
         void DeleteMulti(Expression<Func<T, bool>> where);
