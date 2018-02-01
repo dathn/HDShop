@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace HDShop.Data.Repositories
 {
-    public interface IFooterRepository
+    public interface IVisitorStatisticRepository
     {
 
     }
-    public class FooterRepository : RepositoryBase<Footer>, IFooterRepository
+    public class VisitorStatisticRepository : RepositoryBase<VisitorStatistic>, IVisitorStatisticRepository
     {
-        public FooterRepository(IDbFactory dbFactory) : base(dbFactory)
+        public VisitorStatisticRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
     }
