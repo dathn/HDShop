@@ -21,9 +21,9 @@ namespace HDShop.Service
     }
     public class PostCategoryService : IPostCategoryService
     {
-        IPostCategoryRepository _postCategoryRepository;
-        IUnitOfWork _unitOfWork;
-        public PostCategoryService(IPostCategoryRepository postCategoryRepository, UnitOfWork unitOfWork)
+        private IPostCategoryRepository _postCategoryRepository;
+        private IUnitOfWork _unitOfWork;
+        public PostCategoryService(IPostCategoryRepository postCategoryRepository, IUnitOfWork unitOfWork)
         {
             this._postCategoryRepository = postCategoryRepository;
             this._unitOfWork = unitOfWork;

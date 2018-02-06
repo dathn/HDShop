@@ -19,39 +19,39 @@ namespace HDShop.WebAPI.Infrastructure.Core
         {
             this._errorService = errorService;
         }
-        protected HttpResponseMessage CreateHttpResponse(HttpRequestMessage requestMessage, Func<HttpResponseMessage> func)
+        protected HttpResponseMessage CreateHttpResponse(HttpRequestMessage requestMessage, Func<HttpResponseMessage> function)
         {
-            HttpResponseMessage responseMessage = null;
+            HttpResponseMessage response = null;
             try
             {
-                responseMessage = func.Invoke();
+                response = function.Invoke();
             }
-            //Lỗi validate..dùng Trace
             catch (DbEntityValidationException ex)
             {
-                foreach(var eve in ex.EntityValidationErrors)
+                foreach (var eve in ex.EntityValidationErrors)
                 {
                     Trace.WriteLine($"Entity of type \"{eve.Entry.Entity.GetType().Name}\" in state \"{eve.Entry.State}\" has the following validation error.");
-                    foreach(var ve in eve.ValidationErrors)
+                    foreach (var ve in eve.ValidationErrors)
                     {
-                        Trace.WriteLine($" Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
+                        Trace.WriteLine($"- Property: \"{ve.PropertyName}\", Error: \"{ve.ErrorMessage}\"");
                     }
                 }
                 LogError(ex);
-                responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.InnerException.Message);
+                response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.InnerException.Message);
             }
-            catch(DbUpdateException dbEx)
+            catch (DbUpdateException dbEx)
             {
                 LogError(dbEx);
-                responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest, dbEx.InnerException.Message);
+                response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, dbEx.InnerException.Message);
             }
             catch (Exception ex)
             {
                 LogError(ex);
-                responseMessage = requestMessage.CreateResponse(HttpStatusCode.BadRequest,ex.Message);
+                response = requestMessage.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
-            return responseMessage;
+            return response;
         }
+
         private void LogError(Exception ex)
         {
             try
@@ -65,7 +65,6 @@ namespace HDShop.WebAPI.Infrastructure.Core
             }
             catch
             {
-
             }
         }
     }

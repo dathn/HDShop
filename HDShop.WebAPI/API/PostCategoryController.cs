@@ -15,83 +15,87 @@ namespace HDShop.WebAPI.API
     {
         IPostCategoryService _postCategoryService;
 
-        public PostCategoryController(IErrorService errorService, IPostCategoryService postCategoryService) 
-            : base(errorService)
+        public PostCategoryController(IErrorService errorService, IPostCategoryService postCategoryService) :
+            base(errorService)
         {
             this._postCategoryService = postCategoryService;
         }
+
         [Route("getall")]
-        public HttpResponseMessage Get(HttpRequestMessage requestMessage)
+        public HttpResponseMessage Get(HttpRequestMessage request)
         {
-            //truyền requestMessage từ Client vào, truyền vào function
-            return CreateHttpResponse(requestMessage, () => {
-                HttpResponseMessage responseMessage = null;
-                if (ModelState.IsValid)
-                {
-                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-                }
-                else
-                {
-                    var listCategory = _postCategoryService.GetAll();
-                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.OK, listCategory);
-                }
-                return responseMessage;
+            return CreateHttpResponse(request, () =>
+            {
+                var listCategory = _postCategoryService.GetAll();
+
+                HttpResponseMessage response = request.CreateResponse(HttpStatusCode.OK, listCategory);
+
+
+                return response;
             });
         }
-        public HttpResponseMessage Post(HttpRequestMessage requestMessage, PostCategory postCategory)
+
+        public HttpResponseMessage Post(HttpRequestMessage request, PostCategory postCategory)
         {
-            //truyền requestMessage từ Client vào, truyền vào function
-            return CreateHttpResponse(requestMessage, () => {
-                HttpResponseMessage responseMessage = null;
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
                 if (ModelState.IsValid)
                 {
-                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {
                     var category = _postCategoryService.Add(postCategory);
                     _postCategoryService.Save();
-                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.Created, category);
+
+                    response = request.CreateResponse(HttpStatusCode.Created, category);
+
                 }
-                return responseMessage;
+                return response;
             });
         }
-        public HttpResponseMessage Put(HttpRequestMessage requestMessage, PostCategory postCategory)
+
+        public HttpResponseMessage Put(HttpRequestMessage request, PostCategory postCategory)
         {
-            //truyền requestMessage từ Client vào, truyền vào function
-            return CreateHttpResponse(requestMessage, () => {
-                HttpResponseMessage responseMessage = null;
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
                 if (ModelState.IsValid)
                 {
-                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {
                     _postCategoryService.Update(postCategory);
                     _postCategoryService.Save();
-                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.OK);
+
+                    response = request.CreateResponse(HttpStatusCode.OK);
+
                 }
-                return responseMessage;
+                return response;
             });
         }
-        public HttpResponseMessage Delete(HttpRequestMessage requestMessage, int id)
+
+        public HttpResponseMessage Delete(HttpRequestMessage request, int id)
         {
-            //truyền requestMessage từ Client vào, truyền vào function
-            return CreateHttpResponse(requestMessage, () => {
-                HttpResponseMessage responseMessage = null;
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response = null;
                 if (ModelState.IsValid)
                 {
-                    requestMessage.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                    request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                 }
                 else
                 {
                     _postCategoryService.Delete(id);
                     _postCategoryService.Save();
-                    responseMessage = requestMessage.CreateResponse(HttpStatusCode.OK);
+
+                    response = request.CreateResponse(HttpStatusCode.OK);
+
                 }
-                return responseMessage;
+                return response;
             });
         }
-        
     }
 }

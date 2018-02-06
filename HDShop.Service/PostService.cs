@@ -25,9 +25,9 @@ namespace HDShop.Service
     public class PostService : IPostService
     {
         //Bước 4: khai báo Repository
-        IPostRepository _postRepository;
+        private IPostRepository _postRepository;
         //Bước 5: khai báo UnitOfWork
-        IUnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
         //Bước 3: Gen contructor
         public PostService(IPostRepository postRepository, IUnitOfWork unitOfWork)
         {
