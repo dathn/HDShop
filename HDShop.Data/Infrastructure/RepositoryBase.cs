@@ -31,25 +31,25 @@ namespace HDShop.Data.Infrastructure
         }
 
         #region Implementation
-        public virtual void Add(T entity)
+      
+        T IRepository<T>.Add(T entity)
         {
-            dbSet.Add(entity);
+            return dbSet.Add(entity);
         }
-
         public virtual void Update(T entity)
         {
             dbSet.Attach(entity);
             dbContext.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Delete(T entity)
+        public virtual T Delete(T entity)
         {
-            dbSet.Remove(entity);
+            return dbSet.Remove(entity);
         }
-        public virtual void Delete(int id)
+        public virtual T Delete(int id)
         {
             var entity = dbSet.Find(id);
-            dbSet.Remove(entity);
+            return dbSet.Remove(entity);
         }
         public virtual void DeleteMulti(Expression<Func<T, bool>> where)
         {
@@ -141,31 +141,7 @@ namespace HDShop.Data.Infrastructure
         {
             return dbContext .Set<T>().Count<T>(predicate) > 0;
         }
-
-        void IRepository<T>.Add(T entiry)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IRepository<T>.Delete(T entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        IQueryable<T> IRepository<T>.GetAll(string[] includes)
-        {
-            throw new NotImplementedException();
-        }
-
-        IQueryable<T> IRepository<T>.GetMulti(Expression<Func<T, bool>> expression, string[] includes)
-        {
-            throw new NotImplementedException();
-        }
-
-        IQueryable<T> IRepository<T>.GetMultiPaging(Expression<Func<T, bool>> filter, out int total, int index, int size, string[] includes)
-        {
-            throw new NotImplementedException();
-        }
+               
         #endregion
     }
 }

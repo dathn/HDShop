@@ -32,6 +32,7 @@ namespace HDShop.Data
         public DbSet<SystemConfig> SystemConfigs { set; get; }
         public DbSet<Tag> Tags { set; get; }
         public DbSet<VisitorStatistic> VisitorStatistics { set; get; }
+        public DbSet<Error> Erros { set; get; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
